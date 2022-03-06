@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    private GameManager gm;
     private Rigidbody targetRb;
     private float minSpeed = 12;
     private float maxSpeed = 16;
     private float xRange = 4;
     private float ySpawnPos = -2;
     private float maxTorque = 10;
+    public int pointValue;
     void Start()
     {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         targetRb = GetComponent<Rigidbody>();
         targetRb.AddForce(RandomForce(), ForceMode.Impulse);//far saltare gli oggetti in alto
         targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);// creare doppi oggetti spawnare
@@ -26,7 +29,10 @@ public class Target : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        
         Destroy(gameObject);
+
+        gm.UpDateScore(pointValue);
     }
     public void OnTriggerEnter(Collider other)
     {
