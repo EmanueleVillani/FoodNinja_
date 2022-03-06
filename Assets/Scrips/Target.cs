@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    public ParticleSystem explosion;
     private GameManager gm;
     private Rigidbody targetRb;
     private float minSpeed = 12;
@@ -29,9 +30,10 @@ public class Target : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        
-        Destroy(gameObject);
 
+        Instantiate(explosion, transform.position, explosion.transform.rotation);
+        Destroy(gameObject);
+        
         gm.UpDateScore(pointValue);
     }
     public void OnTriggerEnter(Collider other)
